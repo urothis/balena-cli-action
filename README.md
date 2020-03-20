@@ -1,24 +1,32 @@
-# Balena Push
+# Balena CLI
 
 Continuously deliver your applications to [BalenaCloud](https://www.balena.io/).
 
+Based on [Balena Push](https://github.com/theaccordance/balena-push) from [Joe Mainwaring](https://github.com/theaccordance).
+
 ## Inputs
 
-### `api-token`
+### `balena_api_token`
 
 **Required**: A BalenaCloud API Token, used to authenticate with BalenaCloud.  API keys can be created in the [user settings for BalenaCloud](https://dashboard.balena-cloud.com/preferences/access-tokens).
 
-### `application-name`
+### `balena_command`
 
-**Required**: The target application on BalenaCloud
+**Required**: The balena command you would like to run with the action.
 
-### `application-path`
+### `application_path`
 
-_Optional_: Provide a sub-path to the location for application being deployed to BalenaCloud.  Defaults to the workspace root.   
+_Optional_: Provide a sub-path to the location for application being deployed to BalenaCloud.  Defaults to the workspace root.
+
+### `balena_secrets`
+
+_Optional_: Provide the contents of a balena secrets.json file for authenticating against private registries. 
+
+_Note_: If using private GitHub Packages, you must provide a Personal Access Token instead of using the builtin `secrets.GITHUB_TOKEN`. GitHub currently [does not support](https://github.community/t5/GitHub-Actions/GITHUB-TOKEN-cannot-access-private-packages/m-p/35240) pulling from private package registries using the actions token.
 
 ## Workflow Example
 ```yaml
-name: BalenaCloud Push
+name: BalenaCloud Deploy
 
 on:
   push:
@@ -27,14 +35,22 @@ on:
       - master
 
 jobs:
-  balena-push:
+  balena-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1.1.0
-    - uses: theaccordance/balena-push@v1.0.0
-      with:
-        api-token: ${{secrets.BALENA_API_TOKEN}}
-        application-name: ${{secrets.BALENA_APPLICATION_NAME}}
-        application-path: "./balena-wpe"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Balena Deploy
+        uses: bekriebel/balena-cli-action@v1
+        if: success()
+        with:
+          balena_api_token: ${{secrets.BALENA_API_TOKEN}}
+          balena_command: "deploy my-awesome-app --logs"
+          balena_secrets: |
+            {
+              "docker.pkg.github.com": {
+                "username": "${{ secrets.MY_GITHUB_USER }}",
+                "password": "${{ secrets.MY_GITHUB_TOKEN }}"
+              }
+            }
 ```
