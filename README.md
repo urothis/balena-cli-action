@@ -20,7 +20,7 @@ _Optional_: Provide a sub-path to the location for application being deployed to
 
 ### `balena_secrets`
 
-_Optional_: Provide the contents of a balena secrets.json file for authenticating against private registries. 
+_Optional_: Provide the contents of a balena secrets.json file for authenticating against private registries.
 
 _Note_: If using private GitHub Packages, you must provide a Personal Access Token instead of using the builtin `secrets.GITHUB_TOKEN`. GitHub currently [does not support](https://github.community/t5/GitHub-Actions/GITHUB-TOKEN-cannot-access-private-packages/m-p/35240) pulling from private package registries using the actions token.
 
@@ -41,7 +41,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Balena Deploy
-        uses: bekriebel/balena-cli-action@v1
+        uses: nebraltd/balena-cli-action@v1.2
         if: success()
         with:
           balena_api_token: ${{secrets.BALENA_API_TOKEN}}
