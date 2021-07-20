@@ -1,4 +1,4 @@
-name: 'Balena CLI'
+name: 'Balena CLI (Nebra fork)'
 branding:
   color: "yellow"
   icon: "upload-cloud"
