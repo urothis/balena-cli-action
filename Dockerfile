@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     jq \
     unzip && \
   cd /opt/ && \
-  export BALENA_RELEASE=$(curl -s curl -s https://api.github.com/repos/balena-io/balena-cli/releases/latest | jq -r .tag_name)  && \
+  export BALENA_RELEASE=$(curl -s https://api.github.com/repos/balena-io/balena-cli/releases/latest | jq -r .tag_name)  && \
   curl -O -sSL "https://github.com/balena-io/balena-cli/releases/download/$BALENA_RELEASE/balena-cli-$BALENA_RELEASE-linux-x64-standalone.zip" && \
   unzip balena-cli-*-linux-x64-standalone.zip && \
   ln -s /opt/balena-cli/balena /usr/bin/ && \
