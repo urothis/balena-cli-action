@@ -1,13 +1,16 @@
 FROM debian:stable-slim
 LABEL Description="Use the Balena CLI to perform actions"
 
+
+# Get the latest Balena release using
+# curl -s https://api.github.com/repos/balena-io/balena-cli/releases/latest | jq -r .tag_name)
+
 # Install the standalone balena-cli package
 RUN apt-get update && apt-get install -y \
     curl \
-    jq \
     unzip && \
   cd /opt/ && \
-  export BALENA_RELEASE=$(curl -s https://api.github.com/repos/balena-io/balena-cli/releases/latest | jq -r .tag_name)  && \
+  export BALENA_RELEASE="v12.44.25" && \
   echo "Uses Balena CLI version: $BALENA_RELEASE" && \
   curl -O -sSL "https://github.com/balena-io/balena-cli/releases/download/$BALENA_RELEASE/balena-cli-$BALENA_RELEASE-linux-x64-standalone.zip" && \
   unzip balena-cli-*-linux-x64-standalone.zip && \
