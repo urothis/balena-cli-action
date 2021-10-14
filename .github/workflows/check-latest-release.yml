@@ -1,0 +1,78 @@
+name: Check if we're using the latest Balena CLI Version
+
+on:
+  schedule:
+    - cron:  "00 * * * *" # Run hourly
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with: 
+          ref: ${{ github.ref }}
+      - name: Get Latest Release
+        id: latest_version
+        uses: abatilo/release-info-action@v1.3.0
+        with:
+          owner: balena-io
+          repo: balena-cli
+      - name: Perform check and update
+        env:
+          LATEST_CLI: ${{ steps.latest_version.outputs.latest_tag }}
+        run: |
+          GITHUB_BRANCH=$( echo "${{ github.ref }}" | sed 's/refs\/heads\///g' )
+          
+          echo "LATEST_CLI=$LATEST_CLI" >> $GITHUB_ENV
+          echo "GITHUB_BRANCH=$GITHUB_BRANCH" >> $GITHUB_ENV
+          
+          # Get the latest CLI release
+          if grep -q "$LATEST_CLI" Dockerfile; then
+            echo "We're on the latest Balena CLI release $LATEST_CLI."
+            exit 0
+          else
+            echo "We're not on the latest Balena CLI release. Updating to $LATEST_CLI."
+            sed -i -E '13 s/BALENA_RELEASE=.*/BALENA_RELEASE=\"$LATEST_CLI\"/g" Dockerfile
+            UPDATED=true
+            echo "UPDATED=$UPDATED" >> $GITHUB_ENV
+            exit 0
+          fi
+      - name: Push updated Dockerfile if available
+        if: env.UPDATED == 'true'
+        id: push
+        uses: test-room-7/action-update-file@v1
+        with:
+          branch: ${{ env.GITHUB_BRANCH }}
+          file-path: Dockerfile
+          commit-msg: Update action to latest CLI ${{ env.LATEST_CLI }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tag Commit
+        if: env.UPDATED == 'true'
+        uses: NebraLtd/git-tag-action@master
+        env:
+          TAG: ${{ env.LATEST_CLI }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ steps.push.outputs.commit-sha }}
+      - name: Release
+        if: env.UPDATED == 'true'
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          body: "Bump action to ${{ env.LATEST_CLI }}"
+          commit: ${{ steps.push.outputs.commit-sha }}
+          tag: ${{ env.LATEST_CLI }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Report Status
+        if: env.UPDATED == 'true'
+        uses: ravsamhq/notify-slack-action@master
+        with:
+          status: ${{ job.status }}
+          notification_title: 'Balena CLI Action has been updated to ${{ env.LATEST_CLI }}.'
+          message_format: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
+          footer: '<{run_url}|View Run> | Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>'
+          notify_when: 'success'
+          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.MINER_MONITORING_SLACK }}
