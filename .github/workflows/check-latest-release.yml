@@ -46,7 +46,9 @@ jobs:
         uses: test-room-7/action-update-file@v1
         with:
           branch: ${{ env.GITHUB_BRANCH }}
-          file-path: Dockerfile
+          file-path: |
+            Dockerfile
+            README.md
           commit-msg: Update action to latest CLI ${{ env.LATEST_CLI }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Tag Commit
