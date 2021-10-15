@@ -34,7 +34,7 @@ jobs:
             exit 0
           else
             echo "We're not on the latest Balena CLI release. Updating to $LATEST_CLI."
-            sed -i -E '13 s/BALENA_RELEASE=.*/BALENA_RELEASE="'$LATEST_CLI'" && \\/g' Dockerfile
+            sed -i -E '13 s/BALENA_RELEASE=.*/BALENA_RELEASE="'$LATEST_CLI'" \&\& \\/g' Dockerfile
             UPDATED=true
             echo "UPDATED=$UPDATED" >> $GITHUB_ENV
             exit 0
