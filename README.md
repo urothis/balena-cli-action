@@ -2,7 +2,7 @@
 
 Continuously deliver your applications to [balenaCloud](https://www.balena.io/) using the [official balena CLI tool](https://github.com/balena-io/balena-cli).
 
-Based on [Balena Push](https://github.com/theaccordance/balena-push) from [Joe Mainwaring](https://github.com/theaccordance) and [balena CLI action] (https://github.com/bekriebel/balena-cli-action) from [Brint Kriebel](https://github.com/bekriebel).
+Based on [Balena Push](https://github.com/theaccordance/balena-push) from [Joe Mainwaring](https://github.com/theaccordance) and [balena CLI action](https://github.com/bekriebel/balena-cli-action) from [Brint Kriebel](https://github.com/bekriebel).
 
 ## Inputs
 
