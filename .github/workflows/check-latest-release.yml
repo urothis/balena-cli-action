@@ -72,9 +72,10 @@ jobs:
         uses: ravsamhq/notify-slack-action@master
         with:
           status: ${{ job.status }}
-          notification_title: 'Balena CLI Action has been updated to ${{ env.LATEST_CLI }}.'
+          notification_title: 'Balena CLI Action has been updated to ${{ env.LATEST_CLI }}. Please publish release to GitHub Marketplace!'
           message_format: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
           footer: '<{run_url}|View Run> | Linked Repo <{repo_url}|{repo}> | <{workflow_url}|View Workflow>'
+          mention_groups: 'S02GCFWL27R'
           notify_when: 'success'
           token: ${{ secrets.GITHUB_TOKEN }}
         env:
