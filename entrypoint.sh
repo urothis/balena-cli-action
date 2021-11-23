@@ -25,4 +25,4 @@ fi
 balena login --token ${INPUT_BALENA_API_TOKEN} > /dev/null
 
 # Run command
-/bin/bash -c "$*@"
+/bin/bash -c "$@"
