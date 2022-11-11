@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     unzip && \
   cd /opt/ && \
-  export BALENA_RELEASE="v14.5.9" && \
+  export BALENA_RELEASE="v14.5.10" && \
   echo "Uses Balena CLI version: $BALENA_RELEASE" && \
   curl -O -sSL "https://github.com/balena-io/balena-cli/releases/download/$BALENA_RELEASE/balena-cli-$BALENA_RELEASE-linux-x64-standalone.zip" && \
   unzip balena-cli-*-linux-x64-standalone.zip && \
