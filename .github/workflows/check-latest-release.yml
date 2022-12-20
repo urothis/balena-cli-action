@@ -15,7 +15,7 @@ jobs:
           ref: ${{ github.ref }}
       - name: Get Latest Release
         id: latest_version
-        uses: abatilo/release-info-action@v1.3.0
+        uses: abatilo/release-info-action@v1.3.2
         with:
           owner: balena-io
           repo: balena-cli
