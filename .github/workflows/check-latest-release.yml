@@ -29,7 +29,7 @@ jobs:
           echo "GITHUB_BRANCH=$GITHUB_BRANCH" >> $GITHUB_ENV
           
           # Get the latest CLI release
-          if grep -q "$LATEST_CLI" "null"; then
+          if "$LATEST_CLI" = "null"; then
             echo "Latest release given as $LATEST_CLI. Quitting."
             exit 0
           fi
