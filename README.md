@@ -39,9 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Balena Deploy
-        uses: NebraLtd/balena-cli-action@null
+        uses: NebraLtd/balena-cli-action@v15.0.0
         if: success()
         with:
           balena_api_token: ${{secrets.BALENA_API_TOKEN}}
