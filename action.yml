@@ -17,6 +17,9 @@ inputs:
   balena_secrets:
     description: "Optional contents of a balena secrets.json file"
     required: false
+  nebraos_cloud:
+    description: "Has to be used if NebraOS cloud will be used as target"
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
