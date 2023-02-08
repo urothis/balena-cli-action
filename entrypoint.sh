@@ -3,10 +3,10 @@ set -e
 
 # Swith to given paths
 if [ -d "${GITHUB_WORKSPACE}" ]; then
-  cd ${GITHUB_WORKSPACE}
+  cd "${GITHUB_WORKSPACE}"
 fi
 if [ -d "${INPUT_APPLICATION_PATH}" ]; then
-  cd ${INPUT_APPLICATION_PATH}
+  cd "${INPUT_APPLICATION_PATH}"
 fi
 
 # Error out of no API Token is available
@@ -18,11 +18,16 @@ fi
 # Write secrets file if provided
 if [[ "${INPUT_BALENA_SECRETS}" != "" ]]; then
   mkdir -p ~/.balena/
-  echo ${INPUT_BALENA_SECRETS} > ~/.balena/secrets.json
+  echo "${INPUT_BALENA_SECRETS}" > ~/.balena/secrets.json
+fi
+
+# Add NebraOS Cloud redirection if requested
+if [[ "${INPUT_NEBRAOS_CLOUD}" != "" ]]; then
+  echo "balenaUrl: cloud.nebra.com" > ~/.balenarc.yml
 fi
 
 # Log in to Balena
-balena login --token ${INPUT_BALENA_API_TOKEN} > /dev/null
+balena login --token "${INPUT_BALENA_API_TOKEN}" > /dev/null
 
 # Run command
 balena $*

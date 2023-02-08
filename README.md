@@ -24,6 +24,10 @@ _Optional_: Provide the contents of a balena secrets.json file for authenticatin
 
 _Note_: If using private GitHub Packages, you must provide a Personal Access Token instead of using the builtin `secrets.GITHUB_TOKEN`. GitHub currently [does not support](https://github.community/t5/GitHub-Actions/GITHUB-TOKEN-cannot-access-private-packages/m-p/35240) pulling from private package registries using the actions token.
 
+### `nebraos_cloud`
+
+_Optional_: Redirects deployment to the NebraOS Cloud instead of Balena Cloud.
+
 ## Workflow Example
 ```yaml
 name: BalenaCloud Deploy
