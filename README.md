@@ -24,9 +24,9 @@ _Optional_: Provide the contents of a balena secrets.json file for authenticatin
 
 _Note_: If using private GitHub Packages, you must provide a Personal Access Token instead of using the builtin `secrets.GITHUB_TOKEN`. GitHub currently [does not support](https://github.community/t5/GitHub-Actions/GITHUB-TOKEN-cannot-access-private-packages/m-p/35240) pulling from private package registries using the actions token.
 
-### `nebraos_cloud`
+### `balena_url`
 
-_Optional_: Redirects deployment to the NebraOS Cloud instead of Balena Cloud.
+_Optional_: Redirects deployment to an openBalena instance instead of Balena Cloud. Should be a URL in the format cloud.openbalena.com
 
 ## Workflow Example
 ```yaml
@@ -48,6 +48,7 @@ jobs:
         uses: NebraLtd/balena-cli-action@v16.1.0
         if: success()
         with:
+          balena_url: cloud.openbale a.
           balena_api_token: ${{secrets.BALENA_API_TOKEN}}
           balena_command: "deploy my-awesome-app --logs"
           balena_secrets: |
