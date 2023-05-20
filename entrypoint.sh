@@ -21,9 +21,9 @@ if [[ "${INPUT_BALENA_SECRETS}" != "" ]]; then
   echo "${INPUT_BALENA_SECRETS}" > ~/.balena/secrets.json
 fi
 
-# Add NebraOS Cloud redirection if requested
-if [[ "${INPUT_NEBRAOS_CLOUD}" != "" ]]; then
-  echo "balenaUrl: cloud.nebra.com" > ~/.balenarc.yml
+# Add openBalena redirection if requested
+if [[ "${INPUT_BALENA_URL}" != "" ]]; then
+  echo "balenaUrl: ${INPUT_BALENA_URL}" > ~/.balenarc.yml
 fi
 
 # Log in to Balena
