@@ -2,7 +2,7 @@ name: 'Balena CLI (Nebra fork)'
 branding:
   color: "yellow"
   icon: "upload-cloud"
-description: 'Continuously deliver your IoT applications to BalenaCloud'
+description: 'Continuously deliver your IoT applications to BalenaCloud or openBalena'
 inputs:
   application_path:
     description: "Optional. Provide a subfolder path to your BalenaCloud application, example: ./balena-wpe"
@@ -17,8 +17,8 @@ inputs:
   balena_secrets:
     description: "Optional contents of a balena secrets.json file"
     required: false
-  nebraos_cloud:
-    description: "Has to be used if NebraOS cloud will be used as target"
+  balena_url:
+    description: "Has to be used if openBalena instance will be used as target. Defaults to balenaCloud"
     required: false
 runs:
   using: 'docker'
