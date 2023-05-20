@@ -26,7 +26,7 @@ _Note_: If using private GitHub Packages, you must provide a Personal Access Tok
 
 ### `balena_url`
 
-_Optional_: Redirects deployment to an openBalena instance instead of Balena Cloud. Should be a URL in the format cloud.openbalena.com
+_Optional_: Redirects deployment to an openBalena instance instead of Balena Cloud. Should be a URL in the format `cloud.openbalena.com`.
 
 ## Workflow Example
 ```yaml
