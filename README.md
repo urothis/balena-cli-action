@@ -48,7 +48,7 @@ jobs:
         uses: NebraLtd/balena-cli-action@v16.1.0
         if: success()
         with:
-          balena_url: cloud.openbale a.
+          balena_url: cloud.openbalena.com
           balena_api_token: ${{secrets.BALENA_API_TOKEN}}
           balena_command: "deploy my-awesome-app --logs"
           balena_secrets: |
