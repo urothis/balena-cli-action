@@ -45,7 +45,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Balena Deploy
-        uses: NebraLtd/balena-cli-action@v17.4.7
+        uses: NebraLtd/balena-cli-action@v17.4.8
         if: success()
         with:
           balena_url: cloud.openbalena.com
