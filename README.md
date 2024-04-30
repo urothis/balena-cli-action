@@ -41,7 +41,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Balena Deploy
-        uses: nebraltd/balena-cli-action@v18.2.1
+        uses: nebraltd/balena-cli-action@v18.2.2
         if: success()
         with:
           balena_api_token: ${{secrets.BALENA_API_TOKEN}}
